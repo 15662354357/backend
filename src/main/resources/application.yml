@@ -1,0 +1,118 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+  application:
+    name: finance-knowledge-base
+  
+  # 数据源配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/finance_kb?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: 199804ab
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  # Redis配置
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: 
+      database: 0
+      timeout: 6000ms
+      lettuce:
+        pool:
+          max-active: 10
+          max-wait: -1ms
+          max-idle: 8
+          min-idle: 0
+
+  # 文件上传配置
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 200MB
+      file-size-threshold: 10MB
+
+# MyBatis Plus配置
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.financekb.entity
+
+# JWT配置
+jwt:
+  secret: finance-kb-secret-key-2024-very-long-key-for-security
+  expiration: 86400000 # 24小时（毫秒）
+  header: Authorization
+  token-prefix: Bearer 
+
+# 文件存储配置
+file:
+  upload-path: ./uploads
+  access-url: http://localhost:8080/api/files
+  allowed-types:
+    - image/jpeg
+    - image/png
+    - image/gif
+    - image/bmp
+    - image/webp
+    - application/pdf
+    - application/msword
+    - application/vnd.openxmlformats-officedocument.wordprocessingml.document
+    - application/vnd.ms-excel
+    - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+    - application/vnd.ms-powerpoint
+    - application/vnd.openxmlformats-officedocument.presentationml.presentation
+    - text/plain
+    - video/mp4
+    - video/avi
+    - video/quicktime
+    - video/x-ms-wmv
+    - audio/mpeg
+    - audio/wav
+    - audio/aac
+
+# OpenAI配置
+openai:
+  api-key: ${OPENAI_API_KEY:your-api-key-here}
+  base-url: https://api.openai.com/v1
+  model: gpt-3.5-turbo
+  max-tokens: 2000
+  temperature: 0.7
+  timeout: 30000 # 30秒
+
+# 日志配置
+logging:
+  level:
+    root: INFO
+    com.financekb: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{50} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{50} - %msg%n"
+  file:
+    name: logs/finance-kb.log
+    max-size: 10MB
+    max-history: 30
+
