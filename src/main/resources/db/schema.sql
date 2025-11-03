@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `file_info` (
   `file_name` VARCHAR(255) NOT NULL COMMENT '原始文件名',
   `file_path` VARCHAR(500) NOT NULL COMMENT '文件存储路径',
   `file_url` VARCHAR(500) COMMENT '文件访问URL',
-  `file_type` VARCHAR(50) COMMENT '文件类型（MIME）',
+  `file_type` VARCHAR(255) COMMENT '文件类型（MIME）',
   `file_size` BIGINT COMMENT '文件大小（字节）',
   `file_ext` VARCHAR(20) COMMENT '文件扩展名',
   `category` VARCHAR(50) COMMENT '文件分类',

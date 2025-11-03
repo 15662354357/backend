@@ -70,7 +70,7 @@ jwt:
 
 # 文件存储配置
 file:
-  upload-path: ./uploads
+  upload-path: D:/financekb/uploads
   access-url: http://localhost:8080/api/files
   allowed-types:
     - image/jpeg
